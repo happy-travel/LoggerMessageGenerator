@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-namespace LoggerMessageGenerator.Model
+namespace HappyTravel.LoggerMessageGenerator.Model
 {
     public readonly struct LogEventDescriptor
     {

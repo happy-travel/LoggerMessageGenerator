@@ -1,11 +1,11 @@
 using System;
 using System.IO;
 using System.Linq;
-using LoggerMessageGenerator.Model;
+using HappyTravel.LoggerMessageGenerator.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace LoggerMessageGenerator.Logic
+namespace HappyTravel.LoggerMessageGenerator.Logic
 {
     internal static class EventLoader
     {

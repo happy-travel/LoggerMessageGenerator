@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using LoggerMessageGenerator.Model;
+using HappyTravel.LoggerMessageGenerator.Model;
 using Stubble.Core.Builders;
 using Stubble.Core.Classes;
 
-namespace LoggerMessageGenerator.Logic
+namespace HappyTravel.LoggerMessageGenerator.Logic
 {
     public static class LoggerExtensionsGenerator
     {

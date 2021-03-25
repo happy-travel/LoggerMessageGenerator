@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace LoggerMessageGenerator.Logic
+namespace HappyTravel.LoggerMessageGenerator.Logic
 {
     internal static class NamespaceRetriever
     {
