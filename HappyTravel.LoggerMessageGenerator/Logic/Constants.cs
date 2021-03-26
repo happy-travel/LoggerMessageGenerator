@@ -1,4 +1,4 @@
-namespace LoggerMessageGenerator.Logic
+namespace HappyTravel.LoggerMessageGenerator.Logic
 {
     internal static class Constants
     {

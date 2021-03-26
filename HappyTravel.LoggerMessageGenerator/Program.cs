@@ -1,12 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using LoggerMessageGenerator.Logic;
-using LoggerMessageGenerator.Model;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using HappyTravel.LoggerMessageGenerator.Logic;
 
-namespace LoggerMessageGenerator
+namespace HappyTravel.LoggerMessageGenerator
 {
     internal class Program
     {
