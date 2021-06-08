@@ -7,16 +7,16 @@
         <PackageOutputPath>./nupkg</PackageOutputPath>
         <TargetFrameworks>netcoreapp3.1;net5.0</TargetFrameworks>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageVersion>0.6.0</PackageVersion>
+        <PackageVersion>0.6.1</PackageVersion>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <Description>LoggerMessageGenerator</Description>
-        <PackageReleaseNotes>Changed template to make log methods public</PackageReleaseNotes>
+        <PackageReleaseNotes>Changes to support structured logging</PackageReleaseNotes>
         <Title>LoggerMessageGenerator</Title>
         <Company>HappyTravel</Company>
         <Authors>Vadim Mingazhev</Authors>
         <PackageProjectUrl>https://github.com/happy-travel/logger-message-generator</PackageProjectUrl>
         <RepositoryURL>https://github.com/happy-travel/logger-message-generator</RepositoryURL>
-        <Version>0.6.0</Version>
+        <Version>0.6.1</Version>
         <Nullable>enable</Nullable>
         <LangVersion>9</LangVersion>
     </PropertyGroup>

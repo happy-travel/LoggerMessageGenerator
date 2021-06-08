@@ -8,7 +8,7 @@ namespace {{Namespace}}
         static LoggerExtensions()
         {
         {{#Events}}
-            {{Name}} = LoggerMessage.Define{{#ArgumentTypes.0}}<{{/ArgumentTypes.0}}{{ArgumentTypesString}}{{#ArgumentTypes.0}}>{{/ArgumentTypes.0}} (LogLevel.{{Level}},
+            {{Name}} = LoggerMessage.Define{{#ArgumentTypes.0}}<{{/ArgumentTypes.0}}{{ArgumentTypesString}}{{#ArgumentTypes.0}}>{{/ArgumentTypes.0}}(LogLevel.{{Level}},
                 new EventId({{Id}}, "{{Name}}"),
                 "{{Template}}");
             
