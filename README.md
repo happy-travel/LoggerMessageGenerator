@@ -9,19 +9,19 @@ The solution is implemented as a dotnet tool, more information at https://docs.m
 
 `dotnet pack`
 
-`dotnet tool install LoggerMessageGenerator -g --add-source ./nupkg`
+`dotnet tool install HappyTravel.LoggerMessageGenerator -g --add-source ./nupkg`
 
 
 #### Install steps (for installing github packages, internal use):
 1. Run command prompt and navigate to target project (where log events should be generated)
 2. Run command
-`dotnet tool install LoggerMessageGenerator -g`
+`dotnet tool install HappyTravel.LoggerMessageGenerator -g`
 
 #### Uninstall steps:
 1. Open command prompt
 2. Run command
 
-`dotnet tool uninstall LoggerMessageGenerator -g`
+`dotnet tool uninstall HappyTravel.LoggerMessageGenerator -g`
 
 #### How to use:
 1. Add `LogEvents.json` file to the project folder, in which `LoggerExtensions.g.cs` should be generated. 
@@ -33,55 +33,56 @@ The solution is implemented as a dotnet tool, more information at https://docs.m
 #### LogEvents.json format:
 The file can contain two event types: exceptions and not exceptionspo. To add an event use the following syntax:
 
- `{"id": <%EventId%>, "name": "<%EventTitle%>", "level": "<%LogLevel%>", "source": "<%EventSource%>", "isException": <%IsException%>}`
+ `{"id": <%EventId%>, "name": "<%EventTitle%>", "level": "<%LogLevel%>", "template": "<%MessageTemplate%>", "argumentTypes": <%ArgumentTypes%>}`
 
 Where:
 - **EventId** - is a numerical value, unique Id of event
 - **EventTitle** - is a textual name of the event
 - **LogLevel** - event logging level: Information, Debug, Error etc. from https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.loglevel?view=dotnet-plat-ext-3.1
-- **EventSource** - typically a class or area name where event is occured, in a textual form,
-- **IsException** - flag indicating whether this event is exception or textual log
+- **MessageTemplate** - template of the message or the whole message when no arguments passed,
+- **ArgumentTypes** - an ordered logging method argument CLR types list (optional)
 
-Depending on the values of event fields, logger generator will create logger messages with logger extensions method. For example, for LogEvents.json with:
+Depending on the values of event fields, logger generator will create logger messages with logger extensions method. For each parameter that was used in message template, method parameter will be generated. Argument types are got from "argumentTypes", this must contain the same count of values as in template.
+For example, for LogEvents.json with:
 
-```
+```json
 [
-    {"id": 1001, "name": "CustomerRegistrationException", "level": "Critical", "source": "CustomerService", "isException": true},
-    {"id": 1002, "name": "CustomerRegistrationSuccess", "level": "Information", "source": "CustomerService", "isException": false},
+  {"id": 1001, "name": "CustomerRegistrationException", "level": "Critical", "template": "Customer registration exception"},
+  {"id": 1002, "name": "CustomerRegistrationSuccess", "level": "Information", "template": "Customer '{CustomerName}' registered with id: '{Id}'", "argumentTypes": ["string", "int"]},
 ]
 ```
 
 the following file will be generated:
 
-```
-    internal static class LoggerExtensions
+```csharp
+    public static class LoggerExtensions
     {
         static LoggerExtensions()
         {
-            CustomerRegistrationExceptionOccured = LoggerMessage.Define(LogLevel.Critical,
+            CustomerRegistrationException = LoggerMessage.Define(LogLevel.Critical,
                 new EventId(1001, "CustomerRegistrationException"),
-                $"CRITICAL | CustomerService: ");
+                "Customer registration exception");
             
-            CustomerRegistrationSuccessOccured = LoggerMessage.Define<string>(LogLevel.Information,
+            CustomerRegistrationSuccess = LoggerMessage.Define<string, int>(LogLevel.Information,
                 new EventId(1002, "CustomerRegistrationSuccess"),
-                $"INFORMATION | CustomerService: {{message}}");
+                "Customer '{CustomerName}' registered with id: '{Id}'");
             
         }
     
                 
-         internal static void LogCustomerRegistrationException(this ILogger logger, Exception exception)
-            => CustomerRegistrationExceptionOccured(logger, exception);
+         public static void LogCustomerRegistrationException(this ILogger logger, Exception exception = null)
+            => CustomerRegistrationException(logger, exception);
                 
-         internal static void LogCustomerRegistrationSuccess(this ILogger logger, string message)
-            => CustomerRegistrationSuccessOccured(logger, message, null);
+         public static void LogCustomerRegistrationSuccess(this ILogger logger, string CustomerName, int Id, Exception exception = null)
+            => CustomerRegistrationSuccess(logger, CustomerName, Id, exception);
     
     
         
-        private static readonly Action<ILogger, Exception> CustomerRegistrationExceptionOccured;
+        private static readonly Action<ILogger, Exception> CustomerRegistrationException;
         
-        private static readonly Action<ILogger, string, Exception> CustomerRegistrationSuccessOccured;
+        private static readonly Action<ILogger, string, int, Exception> CustomerRegistrationSuccess;
     }
  ```
 
  
-To use this from code just inject ILogger to class and call `_logger.CustomerRegistrationSuccessOccured("Customer was registered succrssfully")
+To use this from code just inject ILogger to class and call `_logger.CustomerRegistrationSuccessOccured("John Doe")
