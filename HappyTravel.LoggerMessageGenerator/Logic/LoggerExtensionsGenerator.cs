@@ -5,6 +5,7 @@ using System.Reflection;
 using HappyTravel.LoggerMessageGenerator.Model;
 using Stubble.Core.Builders;
 using Stubble.Core.Classes;
+using Stubble.Core.Settings;
 
 namespace HappyTravel.LoggerMessageGenerator.Logic
 {
@@ -15,13 +16,13 @@ namespace HappyTravel.LoggerMessageGenerator.Logic
             var template = LoadTemplate();
 
             return new StubbleBuilder()
-                .Configure(c=> c.SetDefaultTags(new Tags("<%", "%>")))
+              //  .Configure(c=> c.SetDefaultTags(new Tags("<%", "%>")))
                 .Build()
                 .Render(template, new 
                 {
                     Events = events.ToArray(),
                     Namespace = @namespace
-                });
+                }, new RenderSettings {SkipHtmlEncoding = true});
 
 
             static string LoadTemplate()
