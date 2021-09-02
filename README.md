@@ -3,6 +3,11 @@ Log delegates generator tool. Uses LogEvents.json from project to generate ILogg
 
 The solution is implemented as a dotnet tool, more information at https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools
 
+#### Install steps (for installing github packages, internal use):
+1. Run command prompt and navigate to target project (where log events should be generated)
+2. Run command
+`dotnet tool install HappyTravel.LoggerMessageGenerator -g`
+
 #### Install steps (for installing from sources, for external use):
 1. Clone the repository, open command prompt and navigate to target project folder (where tool should be executed)
 2. Run commands:
@@ -11,11 +16,6 @@ The solution is implemented as a dotnet tool, more information at https://docs.m
 
 `dotnet tool install HappyTravel.LoggerMessageGenerator -g --add-source ./nupkg`
 
-
-#### Install steps (for installing github packages, internal use):
-1. Run command prompt and navigate to target project (where log events should be generated)
-2. Run command
-`dotnet tool install HappyTravel.LoggerMessageGenerator -g`
 
 #### Uninstall steps:
 1. Open command prompt
